@@ -3,7 +3,6 @@ import * as React from "react"
 import { useRef, useEffect, useContext } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { getVariantClassName } from '@/utils/getVariantClassName';
 import { useState } from "react";
 import {
   Dialog,
@@ -27,7 +26,7 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
   const inputRef = useRef();
   const [activeElement, setActiveElement] = useState(null);
   const [defaultEmail, setDefaultEmail] = useState('jenn@launchmail.io');
-  const variantClass = getVariantClassName(variant);
+  const variantClass = 'bg-gradient-to-tr from-banklightblue to-bankdarkblue text-white';
   // const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false);
   const [newPersona, setNewPersona] = useState({ name: '', type: '', image: '', email: '' });
   const { personas, addPersona, deleteAllPersonas, getPersonas } = useContext(PersonaContext);

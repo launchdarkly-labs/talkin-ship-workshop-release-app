@@ -39,15 +39,13 @@ const WealthManagementSheet = ({
     exit: { x: "100%" },
   };
 
-  //   const bgBankBlue = getVariantClassName("bank");
-
   return (
     <motion.div
       initial="hidden"
       animate="visible"
       exit="exit"
       variants={variants}
-      className="p-24 bg-gradient-blue shadow-xl overflow-auto h-full flex flex-col content-center justify-center flex-wrap"
+      className="p-24 bg-gradient-to-tr from-teal-400 to-green-600 shadow-xl overflow-auto h-full flex flex-col content-center justify-center flex-wrap"
     >
       <p className="text-white font-sohne mb-6 text-[36px]">Wealth Management</p>
       <Sheet>
