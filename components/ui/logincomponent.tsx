@@ -21,7 +21,7 @@ interface LoginComponentProps {
   name: string;
 }
 
-export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, name }: LoginComponentProps) {
+export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, name }: LoginComponentProps) {
   const inputRef = useRef();
   const [activeElement, setActiveElement] = useState(null);
   const [defaultEmail, setDefaultEmail] = useState('jenn@launchmail.io');
