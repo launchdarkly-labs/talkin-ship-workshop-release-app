@@ -3,7 +3,6 @@ import * as React from "react"
 import { useRef, useEffect, useContext } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { getVariantClassName } from '@/utils/getVariantClassName';
 import { useState } from "react";
 import {
   Dialog,
@@ -19,16 +18,15 @@ interface LoginComponentProps {
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   loginUser: any
-  variant: 'bank' | 'airlines' | 'market';
   name: string;
 }
 
-export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, name }: LoginComponentProps) {
+export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, name }: LoginComponentProps) {
   const inputRef = useRef();
   const [activeElement, setActiveElement] = useState(null);
   const [defaultEmail, setDefaultEmail] = useState('jenn@launchmail.io');
-  const variantClass = getVariantClassName(variant);
-  const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false);
+  const bankButtonColorClass = 'bg-gradient-to-tr from-banklightblue to-bankdarkblue text-white';
+  // const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false);
   const [newPersona, setNewPersona] = useState({ name: '', type: '', image: '', email: '' });
   const { personas, addPersona, deleteAllPersonas, getPersonas } = useContext(PersonaContext);
   const [isAddUserDropdownOpen, setIsAddUserDropdownOpen] = useState(false);
@@ -107,13 +105,6 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
     }
   }, [activeElement]);
 
-  const variantToImageMap = {
-    bank: "ToggleBankBlue.png",
-    airlines: "/launch-airways.svg",
-    market: "/market.png",
-  };
-  const imageSrc = variantToImageMap[variant];
-
   const toggleAddUserDropdown = () => {
     setIsAddUserDropdownOpen(!isAddUserDropdownOpen);
   };
@@ -123,7 +114,7 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
 
       <div className="flex flex-col justify-center mx-auto text-center">
         <img
-          src={imageSrc}
+          src={"ToggleBankBlue.png"}
           width={64}
           className="pt-10 mx-auto pb-4"
         />
@@ -144,12 +135,12 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
 
         <Button
           onClick={handleLogin}
-          className={`mb-4 w-full h-full mx-auto font-audimat rounded-none  text-xl ${variantClass}`}>
+          className={`mb-4 w-full h-full mx-auto font-audimat rounded-none  text-xl ${bankButtonColorClass}`}>
           Login with SSO
         </Button>
 
         <Dialog onDismiss={() => { setIsAddUserDropdownOpen(false) }} className="z-10">
-          <DialogTrigger className={`mb-4 p-2 w-full h-full mx-auto font-audimat rounded-none text-xl ${variantClass} hover:bg-gray-800`}>
+          <DialogTrigger className={`mb-4 p-2 w-full h-full mx-auto font-audimat rounded-none text-xl ${bankButtonColorClass} hover:bg-gray-800`}>
             Switch SSO User
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
@@ -184,7 +175,7 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
 
                     {isAddUserDropdownOpen && (
                       <div className="absolute z-100 left-0 top-0 bottom-0 pt-8 w-full bg-white shadow-lg">
-                        <Button onClick={showBackButton} className={`absolute top-3 text-xs  mx-auto font-audimat left-4 h-5 rounded-full  ${variantClass}`}>
+                        <Button onClick={showBackButton} className={`absolute top-3 text-xs  mx-auto font-audimat left-4 h-5 rounded-full  ${bankButtonColorClass}`}>
                           &larr;
                         </Button>
                         <div className="p-4">
@@ -234,7 +225,7 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
                               ))}
                             </div>
                           </div>
-                          <Button onClick={handleSubmitNewPersona} className={`mb-2 w-full h-full mx-auto font-audimat mt-2 rounded-none text-xl ${variantClass}`}>
+                          <Button onClick={handleSubmitNewPersona} className={`mb-2 w-full h-full mx-auto font-audimat mt-2 rounded-none text-xl ${bankButtonColorClass}`}>
                             Submit
                           </Button>
 
@@ -252,11 +243,11 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
 
             <DialogFooter>
               <div className="flex w-full">
-                <Button onClick={toggleAddUserDropdown} className={`flex-grow  w-11/12 h-full font-audimat rounded-none text-xl ${variantClass}`}>
+                <Button onClick={toggleAddUserDropdown} className={`flex-grow  w-11/12 h-full font-audimat rounded-none text-xl ${bankButtonColorClass}`}>
                   Add New User
                 </Button>
 
-                <Button onClick={handleDeleteAllPersonas} className={`flex-grow  ml-1 w-1/8 font-audimat rounded-none text-lg h-full ${variantClass}`}>
+                <Button onClick={handleDeleteAllPersonas} className={`flex-grow  ml-1 w-1/8 font-audimat rounded-none text-lg h-full ${bankButtonColorClass}`}>
                   &#x21bb;
                 </Button>
               </div>

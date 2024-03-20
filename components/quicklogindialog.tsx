@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/dialog";
 import { useContext, useState } from "react";
 import LoginContext from "@/utils/contexts/login";
-import { getVariantClassName } from "@/utils/getVariantClassName";
 
 interface Persona {
   id: string | number;
@@ -25,7 +24,6 @@ interface QuickLoginDialogProps {
 
 export function QuickLoginDialog({ personas, variant }: QuickLoginDialogProps) {
   const { user, loginUser } = useContext(LoginContext);
-  const variantClass = getVariantClassName(variant);
   const [isDialogOpen, setIsDialogOpen] = useState(true);
 
   const personaClicked = (persona: Persona) => {
@@ -36,7 +34,7 @@ export function QuickLoginDialog({ personas, variant }: QuickLoginDialogProps) {
       {isDialogOpen ? (
         <Dialog>
           <DialogTrigger
-            className={`w-full min-h-full p-1  font-audimat rounded-none text-xl ${variantClass} hover:bg-gray-800`}
+            className={`w-full min-h-full p-1  font-audimat rounded-none text-xl bg-gradient-to-tr from-banklightblue to-bankdarkblue text-white hover:bg-gray-800`}
           >
             Quick Login
           </DialogTrigger>
@@ -58,9 +56,7 @@ export function QuickLoginDialog({ personas, variant }: QuickLoginDialogProps) {
                         onClick={() => personaClicked(persona)}
                         alt={persona.personaname}
                       />
-                      <p className="text-xs text-center mt-2">
-                        {persona.personaname}
-                      </p>
+                      <p className="text-xs text-center mt-2">{persona.personaname}</p>
                     </div>
                   ))}
               </div>

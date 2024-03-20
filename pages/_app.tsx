@@ -1,12 +1,10 @@
 import "@/styles/globals.css";
 import "@/styles/bank.css";
 import { isAndroid, isIOS, isBrowser, isMobile, isMacOs, isWindows } from 'react-device-detect';
-import "@/styles/home.css";
 import type { AppProps } from "next/app";
 import NoSSRWrapper from "@/components/no-ssr";
 import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
 import { v4 as uuidv4 } from "uuid";
-import { TripsProvider } from "@/utils/contexts/TripContext";
 import { LoginProvider } from "@/utils/contexts/login";
 import KeyboardNavigation from "@/components/KeyboardNavigation";
 import Head from "next/head";
@@ -66,7 +64,7 @@ if (typeof window !== "undefined") {
             
               <LoginProvider>
               <QuickCommandDialog>
-                <TripsProvider>
+          
                   <KeyboardNavigation />
                   <Head>
                     <meta
@@ -76,7 +74,7 @@ if (typeof window !== "undefined") {
                     <link rel="apple-touch-icon" href="/apple-icon.png" />
                   </Head>
                   <Component {...pageProps} />
-                </TripsProvider>
+                
                 </QuickCommandDialog>
               </LoginProvider>
           </PersonaProvider>
