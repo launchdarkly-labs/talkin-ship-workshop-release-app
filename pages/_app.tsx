@@ -45,11 +45,6 @@ if (typeof window !== "undefined") {
         timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         country: "US",
       },
-      experience: {
-        key: "a380",
-        name: "a380",
-        airplane: "a380",
-      },
       audience: {
         key: uuidv4().slice(0, 6),
       }
