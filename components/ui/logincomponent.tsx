@@ -28,7 +28,7 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
   const [activeElement, setActiveElement] = useState(null);
   const [defaultEmail, setDefaultEmail] = useState('jenn@launchmail.io');
   const variantClass = getVariantClassName(variant);
-  const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false);
+  // const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false);
   const [newPersona, setNewPersona] = useState({ name: '', type: '', image: '', email: '' });
   const { personas, addPersona, deleteAllPersonas, getPersonas } = useContext(PersonaContext);
   const [isAddUserDropdownOpen, setIsAddUserDropdownOpen] = useState(false);
@@ -107,13 +107,6 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
     }
   }, [activeElement]);
 
-  const variantToImageMap = {
-    bank: "ToggleBankBlue.png",
-    airlines: "/launch-airways.svg",
-    market: "/market.png",
-  };
-  const imageSrc = variantToImageMap[variant];
-
   const toggleAddUserDropdown = () => {
     setIsAddUserDropdownOpen(!isAddUserDropdownOpen);
   };
@@ -123,7 +116,7 @@ export function LoginComponent({ isLoggedIn, setIsLoggedIn, loginUser, variant, 
 
       <div className="flex flex-col justify-center mx-auto text-center">
         <img
-          src={imageSrc}
+          src={"ToggleBankBlue.png"}
           width={64}
           className="pt-10 mx-auto pb-4"
         />
