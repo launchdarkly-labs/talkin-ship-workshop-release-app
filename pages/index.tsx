@@ -1,6 +1,5 @@
 //@ts-nocheck
 import Bank from "./bank";
-
 export default function Home() {
 
   //TODO: delete after if we make sure if we aren't using this to develop anything 

@@ -106,7 +106,18 @@ export function CheckingAccount({ wealthManagement }: CheckingAccountProps) {
       <SheetContent className="w-full lg:w-1/2 overflow-auto" side="right">
         <SheetHeader>
           <SheetTitle className="font-sohne text-2xl">
-            Checking Account
+            <div className="flex-col">
+              <div className="flex">Checking Account</div>
+              {financialDBMigration === "complete" ? (
+                <div className="flex text-center items-center justify-center my-6 bg-green-200 text-zinc-500 font-sohnebuch font-extralight text-base py-2">
+                  Retrieving data from DynamoDB
+                </div>
+              ) : (
+                <div className="flex text-center items-center justify-center my-6 bg-amber-200 font-sohnebuch font-extralight text-base py-2">
+                  Retrieving Data from RDS
+                </div>
+              )}
+            </div>
           </SheetTitle>
           <SheetDescription className="font-sohne">
             Understand the Balance of Your Checking Accounts
@@ -114,9 +125,14 @@ export function CheckingAccount({ wealthManagement }: CheckingAccountProps) {
         </SheetHeader>
 
         <Table className="">
-          <TableCaption><Button className="flex rounded-none bg-blue-700 text-lg font-sohnelight" onClick={getTransactions}>
+          <TableCaption>
+            <Button
+              className="flex rounded-none bg-blue-700 text-lg font-sohnelight"
+              onClick={getTransactions}
+            >
               Refresh Data
-            </Button></TableCaption>
+            </Button>
+          </TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>Date</TableHead>
@@ -131,7 +147,7 @@ export function CheckingAccount({ wealthManagement }: CheckingAccountProps) {
                 <TableCell className="font-medium">{item.date}</TableCell>
                 <TableCell>{item.merchant}</TableCell>
                 <TableCell>{item.status}</TableCell>
-                <TableCell className="text-right">{item.amount}</TableCell>
+                <TableCell className="text-right">{Number(item.amount.toLocaleString('en-US', {style: 'currency', currency: 'USD'}))}</TableCell>
               </TableRow>
             ))}
           </TableBody>

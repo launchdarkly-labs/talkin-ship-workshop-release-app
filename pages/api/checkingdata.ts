@@ -8,6 +8,11 @@ import postgres from 'postgres'
 import { transactions } from '@/schema/schema'
 import { checkData } from '@/lib/checkingdata';
 import * as ld from '@launchdarkly/node-server-sdk'
+import {
+  DynamoDBClient,
+  ScanCommand,
+} from "@aws-sdk/client-dynamodb";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
 
 
 type Data = {
@@ -41,6 +46,15 @@ export default async function handler(
   const client = postgres(connectionString)
   const db = drizzle(client);
 
+  const dynamoClient = new DynamoDBClient({
+    region: process.env.REGION,
+    credentials: {    
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? '',
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? '',
+    }
+  });
+
+
   const config: ld.LDMigrationOptions = {
     readOld: async (key?: string) => {
       async function getMyData() {
@@ -53,30 +67,65 @@ export default async function handler(
         // console.log("Waiting delay")
         await delay(1,3)
         // console.log("Delay complete")
-        return checkData
+        let checkingTransactions;
+        checkingTransactions = await db.select().from(transactions).where(eq(transactions.accounttype, 'checking'))
+        return checkingTransactions
       }
 
-      const result = await getMyData()
+      const checkingTransactions = await getMyData()
 
-      if (result) {
-
-        return ld.LDMigrationSuccess(result);
+      if (checkingTransactions) {
+        
+        return ld.LDMigrationSuccess(checkingTransactions)
       } else {
         //@ts-ignore
-        return ld.LDMigrationError(new Error('Simulated failure'))
+        return ld.LDMigrationError(checkingTransactions.error as Error)
       }
     },
 
     readNew: async (key?: string) => {
-      let checkingTransactions;
-      checkingTransactions = await db.select().from(transactions).where(eq(transactions.accounttype, 'checking'))
-
-      if (checkingTransactions) {
-        //console.log(checkingTransactions)
-        return ld.LDMigrationSuccess(checkingTransactions)
-      } else {
-        // @ts-ignore
-        return ld.LDMigrationError(checkingTransactions.error as Error)
+      let dynamoData = null;
+      const Item = await dynamoClient.send(
+        new ScanCommand({
+          TableName: "talkin-ship-release-demo",
+          ExpressionAttributeNames: {
+            "#ID": "id",
+            "#DT": "date",
+            "#MR": "merchant",
+            "#ST": "status",
+            "#AM": "amount",
+            "#AT": "account_type"
+          },
+          ExpressionAttributeValues: 
+          {
+            ":ck": {
+              S: 'checking'
+            }
+          },
+          FilterExpression: "account_type = :ck",
+          ProjectionExpression: "#ID, #DT, #MR, #ST, #AM, #AT",
+        })
+      );
+      try {
+        const items = Item["Items"].map((item) => {
+          return unmarshall(item);
+        });
+        dynamoData = {
+          dynamo: items.map((item) => {
+            return {
+              id: item.id,
+              date: item.date,
+              merchant: item.merchant,
+              status: item.status,
+              amount: item.amount
+            };
+          }),
+        };
+        return [
+          ld.LDMigrationSuccess(dynamoData)        
+        ];
+      } catch (error) {
+        return ld.LDMigrationError(new Error("Migration Error with DynamoDB"))
       }
     },
 
@@ -111,12 +160,13 @@ export default async function handler(
 
   if (req.method === 'GET') {
     const checkingTransactions = await migration.read('financialDBMigration', jsonObject, 'off')
-
-    if (checkingTransactions.success) {
-      //console.log("the success is - " + JSON.stringify(checkingTransactions))
+    if (checkingTransactions.origin === 'new') {
+      res.status(200).json(checkingTransactions['0'].result.dynamo)
+    } 
+    if (checkingTransactions.origin === 'old' && checkingTransactions.success) {
       res.status(200).json(checkingTransactions.result)
-    } else {
-      //("the failure is - " + JSON.stringify(checkingTransactions))
+    }
+    else {
       res.status(502).json({ error: 'Server encountered an error processing the request.' })
     }
   }

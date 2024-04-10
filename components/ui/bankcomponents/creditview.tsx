@@ -40,7 +40,23 @@ export function CreditAccount() {
 
   async function getTransactions() {
     const response = await fetch("/api/creditdata");
-    const transactionsJson: Transaction[] = await response.json();
+    let transactionsJson: Transaction[];
+    if (response.status == 200) {
+      const data = await response.json();
+      transactionsJson = data;
+    } else {
+      transactionsJson = [
+        {
+          id: 0,
+          date: "",
+          merchant: "",
+          status: "Server Error",
+          amount: 0,
+          accounttype: "",
+          user: "",
+        },
+      ];
+    }
     setTransactions(transactionsJson);
     return transactionsJson;
   }
@@ -53,7 +69,6 @@ export function CreditAccount() {
     <Sheet>
       <SheetTrigger asChild>
         <div className="h-full grid p-2">
-
           <div className="flex flex-col items-start space-y-4">
             <div className="bg-blue-300/30 rounded-full flex items-center justify-center w-10 h-10">
               <CreditCard className="text-blue-700" />
@@ -68,20 +83,28 @@ export function CreditAccount() {
             <div className="space-y-2">
               <p className="balancetext">Total Credit Balance: </p>
               <p className="balance">$1,203</p>
-              
-              </div>
-              <div>
+            </div>
+            <div>
               <p className="duetext">Next Due: 23rd</p>
             </div>
           </div>
-
-       
-</div>
+        </div>
       </SheetTrigger>
       <SheetContent className="w-full lg:w-1/2 overflow-auto" side="right">
         <SheetHeader>
           <SheetTitle className="font-sohne text-2xl">
-            GSF Platinum Credit Account
+            <div className="flex-col">
+              <div className="flex">GSF Platinum Credit Account</div>
+              {financialDBMigration === "complete" ? (
+                <div className="flex text-center items-center justify-center my-6 bg-green-200 text-zinc-500 font-sohnebuch font-extralight text-base py-2">
+                  Retrieving data from DynamoDB
+                </div>
+              ) : (
+                <div className="flex text-center items-center justify-center my-6 bg-amber-200 font-sohnebuch font-extralight text-base py-2">
+                  Retrieving data from RDS
+                </div>
+              )}
+            </div>
           </SheetTitle>
           <SheetDescription className="font-sohne">
             Transaction history for your GSF Platinum Credit Account
@@ -101,7 +124,7 @@ export function CreditAccount() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {transactions.map((invoice,i) => (
+            {transactions.map((invoice, i) => (
               <TableRow key={i}>
                 <TableCell className="font-medium">{invoice.date}</TableCell>
                 <TableCell>{invoice.merchant}</TableCell>
