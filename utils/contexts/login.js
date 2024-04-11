@@ -2,6 +2,7 @@
 import { useLDClient } from "launchdarkly-react-client-sdk";
 import { createContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { setCookie } from "cookies-next";
 
 const LoginContext = createContext();
 
@@ -26,7 +27,7 @@ export const LoginProvider = ({ children }) => {
     setIsLoggedIn(true);
     setUser(user);
     setEmail(email);
-
+    setCookie("ldcontext", context);
     await client.identify(context);
   };
 
@@ -34,7 +35,9 @@ export const LoginProvider = ({ children }) => {
     const context = await client?.getContext();
     console.log("updateAudienceContext",context)
     context.audience.key = uuidv4().slice(0, 10);
+    setCookie("ldcontext", context);
     await client.identify(context);
+    
   }
 
   const logoutUser = async () => {
@@ -45,6 +48,7 @@ export const LoginProvider = ({ children }) => {
     const context = client?.getContext();
     context.user.name = "anonymous";
     client.identify(context);
+    setCookie("ldcontext", context);
   };
 
   const setPlaneContext = async (plane) => {
@@ -53,6 +57,7 @@ export const LoginProvider = ({ children }) => {
     context.experience.airplane = plane;
     console.log("Plane context registered for trip as - " + plane);
     client.identify(context);
+    setCookie("ldcontext", context);
   };
 
   const upgradeLaunchClub = async (status) => {
@@ -62,6 +67,7 @@ export const LoginProvider = ({ children }) => {
     context.user.launchclub = status;
     console.log("User upgraded to " + status + " status");
     client.identify(context);
+    setCookie("ldcontext", context);
   };
 
   return (

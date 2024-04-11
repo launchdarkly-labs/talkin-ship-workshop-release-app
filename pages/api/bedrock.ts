@@ -3,11 +3,15 @@ import {
     InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
 import { NextApiRequest, NextApiResponse } from 'next';
-
+import { getServerClient } from '@/utils/ld-server';
+import { getCookie } from "cookies-next";
 
 export default async function bedrockCall(req: NextApiRequest, res: NextApiResponse) {
     const client = new BedrockRuntimeClient({ region: "us-west-2" });
-    const prompt = req.body;
+
+    // We need to update this prompt with the code from 04-exploring-different-flag-variations
+    let prompt = "Tell the user that they still needs to make some changes to the API for this to work. Give them a nice message letting them know that you are happy to assist once they make the right changes in their application and then you can give them financial advice. Hard constraint on a maximum of 50 words." 
+    // update between these two comment blocks. 
 
 
 // Debug jurassic another time 

@@ -10,7 +10,7 @@ import FederatedAccountModule from "@/components/ui/bankcomponents/federatedAcco
 import NavBar from "@/components/ui/navbar";
 import LoginHomePage from "@/components/LoginHomePage";
 import WealthManagementSheet from "@/components/ui/bankcomponents/wealthManagement";
-import { motion } from "framer-motion";
+import ComingSoonModule from "@/components/ui/bankcomponents/comingSoonModule";
 import { AccountTrends } from "@/components/ui/bankcomponents/accounttrends";
 
 export default function Bank() {
@@ -113,7 +113,9 @@ export default function Bank() {
               >
                 <div className="p-6  bg-gradient-blue w-full">
                   <div className="justify-center xl:justify-start">
-                    <p className="text-white font-sohne mb-6 text-[24px]">Account Summary</p>
+                    <p className="text-white font-sohne mb-6 text-[24px]">
+                      Account Summary
+                    </p>
 
                     <div className="flex flex-col sm:flex-row gap-y-4 sm:gap-x-4">
                       <div className="p-4 h-[300px] w-full sm:w-1/3  bg-white ">
@@ -129,14 +131,21 @@ export default function Bank() {
                   </div>
                 </div>
               </section>
-              {federatedAccounts ? <FederatedAccountModule /> : null}
+              {/* Add code from 02-Creating our first feature flag */}
+              <ComingSoonModule />
+              {/* We need to replace the code in between these comment blocks */}
             </section>
 
             <section className="flex flex-col xl:flex-row w-full gap-y-8 sm:gap-x-8 mb-10 h-full">
-              <div className={`w-full  ${wealthManagement ? "xl:w-[60%]" : "sm:w-full"}`}>
+              <div
+                className={`w-full  ${
+                  wealthManagement ? "xl:w-[60%]" : "sm:w-full"
+                }`}
+              >
                 <AccountTrends data={data} />
               </div>
 
+              {/* add code from 03-Controlling-the-audience-size */}
               {wealthManagement ? (
                 <div className="w-full xl:w-[40%]">
                   <WealthManagementSheet
@@ -149,6 +158,7 @@ export default function Bank() {
                   />
                 </div>
               ) : null}
+              {/* can add the code between these two comment blocks */}
             </section>
 
             <div className="flex flex-col lg:flex-row w-full h-full gap-y-8 sm:gap-x-8 justify-between">
@@ -160,7 +170,6 @@ export default function Bank() {
               </div>
             </div>
           </main>
-
         </div>
       )}
     </>
