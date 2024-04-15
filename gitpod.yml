@@ -1,7 +1,10 @@
 tasks: 
 - name: Start Workshop
   init: |
+   touch .env
    curl -s --header "Vault-X-Token: ${{secrets.VAULT_TOKEN}}" ${{ secrets.VAULT_URL}} | jq -r '.data | "AWS_ACCESS_KEY=\(.access_key)\nAWS_SECRET_KEY=\(.secret_key)"' > .env
+   echo "DB_URL='postgresql://postgres:LDD3v3xp@fielddemodb.cii3vie7naoe.us-west-2.rds.amazonaws.com:5432'" >> .env
+   echo "REGION='us-east-2'" >> .env
    npm install
   command: npm run dev
 
