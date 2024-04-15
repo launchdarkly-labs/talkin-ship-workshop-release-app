@@ -1,0 +1,12 @@
+tasks: 
+- name: Start Workshop
+  init: |
+   curl -s --header "Vault-X-Token: ${{scecrets.VAULT_TOKEN}}" ${{ secrets.VAULT_URL}} | jq -r '.data | "AWS_ACCESS_KEY=\(.access_key)\nAWS_SECRET_KEY=\(.secret_key)"' > .env
+   npm install
+  command: npm run dev
+
+ports: 
+  - port: 3000
+    onOpen: open-preview
+    name: ToggleBank
+    description: ToggleBank preview
