@@ -1,7 +1,8 @@
 tasks: 
 - name: Start Workshop
   init: |
-   curl -o .env https://talkin-ship-workshop.s3.us-east-2.amazonaws.com/release.env
+   touch .env
+   curl -s --header "X-Vault-Token: ${{secrets.VAULT_TOKEN}}" ${{secrets.VAULT_URL}} | jq -r '.data | "AWS_ACCESS_KEY=\(.access_key)\nAWS_SECRET_KEY=\(.secret_key)"' > .env
    npm install
   command: npm run dev
 
