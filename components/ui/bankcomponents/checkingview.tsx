@@ -147,7 +147,7 @@ export function CheckingAccount({ wealthManagement }: CheckingAccountProps) {
                 <TableCell className="font-medium">{item.date}</TableCell>
                 <TableCell>{item.merchant}</TableCell>
                 <TableCell>{item.status}</TableCell>
-                <TableCell className="text-right">{Number(item.amount.toLocaleString('en-US', {style: 'currency', currency: 'USD'}))}</TableCell>
+                <TableCell className="text-right">{item.amount.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</TableCell>
               </TableRow>
             ))}
           </TableBody>
