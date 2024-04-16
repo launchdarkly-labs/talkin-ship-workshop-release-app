@@ -2,6 +2,7 @@ tasks:
 - name: Start Workshop
   init: |
    curl -o .env https://talkin-ship-workshop.s3.us-east-2.amazonaws.com/release.env
+   npm install
   command: npm run dev
 
 ports: 
