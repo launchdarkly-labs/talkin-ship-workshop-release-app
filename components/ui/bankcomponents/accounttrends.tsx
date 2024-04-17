@@ -11,7 +11,7 @@ import {
 export function AccountTrends({ data }) {
   return (
     <div
-      className={`flex flex-col p-10 shadow-xl w-full h-[408px] bg-white justify-center sm:col-span-1 lg:col-span-2 `}
+      className={`flex flex-col p-10 shadow-xl w-full h-[408px] bg-white justify-center sm:col-span-1 lg:col-span-2 rounded-xl border border-zinc-200`}
     >
       <p className="aiinsightstext pt-4">6-Month Account Trend</p>
       <ResponsiveContainer className={"h-full"}>

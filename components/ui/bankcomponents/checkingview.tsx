@@ -82,21 +82,24 @@ export function CheckingAccount({ wealthManagement }: CheckingAccountProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <div className="h-full grid p-2">
+        <div className="h-full grid p-2 text-base font-sohnelight">
           <div className="flex flex-col items-start space-y-4">
             <div className="bg-blue-300/30 rounded-full flex items-center justify-center w-10 h-10">
               <CiMoneyCheck1 className="text-blue-700 h-8 w-8" />
             </div>
             <div className="pb-1">
-              <p className="accounttext">Checking (***2982)</p>
+              <p className="text-base text-zinc-500">
+                <strong className="font-sohne">Platinum Checking</strong>{" "}
+                (***2982)
+              </p>
               <br />
             </div>
           </div>
 
           <div className="flex flex-col justify-between">
             <div className="space-y-2">
-              <p className="balancetext">Total Checking Balance: </p>
-              <p className="balance">$83,758</p>
+              <p className="text-zinc-500">Total Checking Balance: </p>
+              <p className="balance">$83,758.52</p>
             </div>
           </div>
 
@@ -147,7 +150,12 @@ export function CheckingAccount({ wealthManagement }: CheckingAccountProps) {
                 <TableCell className="font-medium">{item.date}</TableCell>
                 <TableCell>{item.merchant}</TableCell>
                 <TableCell>{item.status}</TableCell>
-                <TableCell className="text-right">{item.amount.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</TableCell>
+                <TableCell className="text-right">
+                  {item.amount.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

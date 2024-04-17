@@ -100,7 +100,7 @@ export default function Bank() {
         <div className="mb-8">
           <NavBar variant={"bank"} handleLogout={handleLogout} />
 
-          <main className="w-full px-8 mx-auto max-w-7xl ">
+          <main className="px-8 mx-auto w-5/6">
             <section
               className={`flex flex-col xl:flex-row py-8 ${
                 federatedAccounts ? "gap-y-8 sm:gap-x-8" : ""
@@ -109,11 +109,11 @@ export default function Bank() {
               <section
                 className={`w-full h-full ${
                   federatedAccounts ? "xl:w-[60%]" : "xl:w-full"
-                } font-sohne shadow-xl`}
+                } font-sohne shadow-xl rounded-xl border border-zinc-200`}
               >
-                <div className="p-6  bg-gradient-blue w-full">
+                <div className="p-6  bg-bglightblue w-full rounded-xl">
                   <div className="justify-center xl:justify-start">
-                    <p className="text-white font-sohne mb-6 text-[24px]">Account Summary</p>
+                    <p className="text-black font-sohne mb-6 text-[24px]">Account Summary</p>
 
                     <div className="flex flex-col sm:flex-row gap-y-4 sm:gap-x-4">
                       <div className="p-4 h-[300px] w-full sm:w-1/3  bg-white ">

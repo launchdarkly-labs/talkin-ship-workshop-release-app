@@ -134,31 +134,31 @@ const NavBar = React.forwardRef<any, NavBarProps>(
       <>
         <button
           href="/bank"
-          className={`${navLinkStyling} ml-12 text-white hover:text-white focus:text-airlinetext bg-gradient-to-r from-banklightblue to-bankdarkblue bg-[length:100%_3px]`}
+          className={`${navLinkStyling} ml-12 text-white hover:text-white focus:text-airlinetext bg-gradient-releases bg-[length:100%_3px]`}
         >
           Summary
         </button>
         <button
           href="/bank"
-          className={`${navLinkStyling} text-airlineinactive focus:text-airlinetext hover:text-white hover:bg-gradient-to-r from-banklightblue to-bankdarkblue bg-[length:100%_3px]`}
+          className={`${navLinkStyling} text-airlineinactive focus:text-airlinetext hover:text-white hover:bg-gradient-releases bg-[length:100%_3px]`}
         >
           Transfers
         </button>
         <button
           href="/bank"
-          className={`${navLinkStyling} text-airlineinactive focus:text-airlinetext hover:text-white hover:bg-gradient-to-r from-banklightblue to-bankdarkblue bg-[length:100%_3px]`}
+          className={`${navLinkStyling} text-airlineinactive focus:text-airlinetext hover:text-white hover:bg-gradient-releases bg-[length:100%_3px]`}
         >
           Deposits
         </button>
         <button
           href="/bank"
-          className={`${navLinkStyling} text-airlineinactive focus:text-airlinetext hover:text-white hover:bg-gradient-to-r from-banklightblue to-bankdarkblue bg-[length:100%_3px]`}
+          className={`${navLinkStyling} text-airlineinactive focus:text-airlinetext hover:text-white hover:bg-gradient-releases bg-[length:100%_3px]`}
         >
           External Accounts
         </button>
         <button
           href="/bank"
-          className={`${navLinkStyling} text-airlineinactive focus:text-airlinetext hover:text-white hover:bg-gradient-to-r from-banklightblue to-bankdarkblue bg-[length:100%_3px]`}
+          className={`${navLinkStyling} text-airlineinactive focus:text-airlinetext hover:text-white hover:bg-gradient-releases bg-[length:100%_3px]`}
         >
           Statements
         </button>

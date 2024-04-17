@@ -68,24 +68,27 @@ export function CreditAccount() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <div className="h-full grid p-2">
+        <div className="h-full grid p-2 text-base font-sohnelight">
           <div className="flex flex-col items-start space-y-4">
             <div className="bg-blue-300/30 rounded-full flex items-center justify-center w-10 h-10">
               <CreditCard className="text-blue-700" />
             </div>
             <div className="">
-              <p className="accounttext">Platinum Credit (***3487)</p>
-              <p className="aprtext pt-2">APR $13.875</p>
+              <p className="text-zinc-500">
+                <strong className="font-sohne">GSF Platinum Credit</strong>{" "}
+                (***4222)
+              </p>
+              <p className="pt-2 text-zinc-500">APR 13.875%</p>
             </div>
           </div>
 
           <div className="flex flex-col justify-between">
             <div className="space-y-2">
-              <p className="balancetext">Total Credit Balance: </p>
-              <p className="balance">$1,203</p>
+              <p className="text-zinc-500">Total Credit Balance: </p>
+              <p className="balance">$1,203.00</p>
             </div>
             <div>
-              <p className="duetext">Next Due: 23rd</p>
+              <p className="text-bankdarkblue">Next Due: June 23rd, 2024</p>
             </div>
           </div>
         </div>

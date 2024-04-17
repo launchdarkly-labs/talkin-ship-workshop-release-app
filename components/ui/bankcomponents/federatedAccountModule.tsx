@@ -19,16 +19,16 @@ const [federatedAccountOne, setFederatedAccountOne] = useState(false);
   };
 
     return (
-        <section className="h-full w-full xl:w-[40%]  font-sohne  shadow-xl">
+        <section className="h-full w-full xl:w-[40%]  font-sohne rounded-xl  shadow-xl">
                   <motion.div
                     initial="hidden"
                     animate="visible"
                     exit="exit"
                     variants={accountvariant}
-                    className=" p-6 gap-4 w-full bg-gradient-mobile h-full"
+                    className=" p-6 gap-4 w-full bg-zinc-100 h-full rounded-xl border bg-zinc-200"
                   >
-                    <p className="text-white font-sohne mb-6 text-[24px]">
-                      Federated Account Access
+                    <p className="text-black font-sohne mb-6 text-[24px]">
+                      Federated account access
                     </p>
                     <div className="flex flex-col sm:flex-row gap-y-4 sm:gap-x-4 justify-start">
                       {!federatedAccountOne ? (
