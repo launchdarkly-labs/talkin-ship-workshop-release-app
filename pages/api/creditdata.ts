@@ -45,6 +45,7 @@ export default async function handler(
     const db = drizzle(client);
     const ldClient = await getServerClient(process.env.LD_SDK_KEY || "");
     const clientContext: any = getCookie('ldcontext', { req, res })
+    console.log(clientContext)
     const dynamoClient = new DynamoDBClient({
     region: process.env.REGION,
     credentials: {
@@ -157,16 +158,9 @@ const config: ld.LDMigrationOptions = {
   }
 
   if (req.method === 'GET') {
-    const creditTransactions = await migration.read('financialDBMigration', jsonObject, 'off')
-    if (creditTransactions.origin === 'new') {
-      console.log(creditTransactions['0'].result.dynamo)
-      res.status(200).json(creditTransactions['0'].result.dynamo)
-    }
-    if (creditTransactions.origin === 'old' && creditTransactions.success) {
-      res.status(200).json(creditTransactions.result)
-    }
-    else {
-      res.status(502).json({ error: 'Server encountered an error processing the request.' })
-    }
+    let creditData 
+    creditData = await db.select().from(transactions).where(eq(transactions.accounttype, 'credit'))
+    //@ts-ignore
+    res.status(200).json(creditData);
   }
 }

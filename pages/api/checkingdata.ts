@@ -158,16 +158,13 @@ export default async function handler(
     jsonObject = JSON.parse(json);
   }
 
+//Replace this code block with the content from 05-introduction-to-migration flags
   if (req.method === 'GET') {
-    const checkingTransactions = await migration.read('financialDBMigration', jsonObject, 'off')
-    if (checkingTransactions.origin === 'new') {
-      res.status(200).json(checkingTransactions['0'].result.dynamo)
-    } 
-    if (checkingTransactions.origin === 'old' && checkingTransactions.success) {
-      res.status(200).json(checkingTransactions.result)
-    }
-    else {
-      res.status(502).json({ error: 'Server encountered an error processing the request.' })
-    }
+    let checkingTransactions;
+    checkingTransactions = await db.select().from(transactions).where(eq(transactions.accounttype, 'checking'))
+    //@ts-ignore
+    res.status(200).json(checkingTransactions)
   }
+//Replace the code between these two code blocks 
 }
+
