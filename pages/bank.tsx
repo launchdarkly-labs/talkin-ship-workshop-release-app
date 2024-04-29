@@ -144,18 +144,7 @@ export default function Bank() {
               </div>
 
               {/* add code from 03-Controlling-the-audience-size */}
-              {wealthManagement ? (
-                <div className="w-full xl:w-[40%]">
-                  <WealthManagementSheet
-                    data={data}
-                    aiPrompt={aiPrompt}
-                    submitQuery={submitQuery}
-                    prompt={prompt}
-                    loading={loading}
-                    aiResponse={aiResponse}
-                  />
-                </div>
-              ) : null}
+
               {/* can add the code between these two comment blocks */}
             </section>
 
