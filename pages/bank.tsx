@@ -100,7 +100,7 @@ export default function Bank() {
         <div className="mb-8">
           <NavBar variant={"bank"} handleLogout={handleLogout} />
 
-          <main className="px-8 mx-auto w-5/6">
+          <main className="w-full px-8 mx-auto max-w-7xl ">
             <section
               className={`flex flex-col xl:flex-row py-8 ${
                 federatedAccounts ? "gap-y-8 sm:gap-x-8" : ""
@@ -129,6 +129,8 @@ export default function Bank() {
                   </div>
                 </div>
               </section>
+
+
               {/* Add code from 02-Creating our first feature flag */}
               <ComingSoonModule />
               {/* We need to replace the code in between these comment blocks */}
@@ -143,19 +145,10 @@ export default function Bank() {
                 <AccountTrends data={data} />
               </div>
 
+
+
               {/* add code from 03-Controlling-the-audience-size */}
-              {wealthManagement ? (
-                <div className="w-full xl:w-[40%]">
-                  <WealthManagementSheet
-                    data={data}
-                    aiPrompt={aiPrompt}
-                    submitQuery={submitQuery}
-                    prompt={prompt}
-                    loading={loading}
-                    aiResponse={aiResponse}
-                  />
-                </div>
-              ) : null}
+
               {/* can add the code between these two comment blocks */}
             </section>
 
