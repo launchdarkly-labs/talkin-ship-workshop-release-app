@@ -1,4 +1,3 @@
-import { PlusSquare } from "lucide-react";
 import { useContext, useState, useEffect } from "react";
 import { CheckingAccount } from "@/components/ui/bankcomponents/checkingview";
 import { CreditAccount } from "@/components/ui/bankcomponents/creditview";
@@ -7,20 +6,16 @@ import { useFlags, useLDClient } from "launchdarkly-react-client-sdk";
 import { checkData } from "@/lib/checkingdata";
 import { setCookie } from "cookies-next";
 import LoginContext from "@/utils/contexts/login";
-import { FederatedCheckingAccount } from "@/components/ui/bankcomponents/federatedChecking";
-import { FederatedCreditAccount } from "@/components/ui/bankcomponents/federatedCredit";
+import FederatedAccountModule from "@/components/ui/bankcomponents/federatedAccountModule";
 import NavBar from "@/components/ui/navbar";
 import LoginHomePage from "@/components/LoginHomePage";
 import WealthManagementSheet from "@/components/ui/bankcomponents/wealthManagement";
-import { motion } from "framer-motion";
+import ComingSoonModule from "@/components/ui/bankcomponents/comingSoonModule";
 import { AccountTrends } from "@/components/ui/bankcomponents/accounttrends";
-import FederatedAccountModule from "@/components/ui/bankcomponents/federatedAccountModule";
 
 export default function Bank() {
   const [loading, setLoading] = useState<boolean>(false);
   const [aiResponse, setAIResponse] = useState<string>("");
-  const [federatedAccountOne, setFederatedAccountOne] = useState(false);
-  const [federatedAccountTwo, setFederatedAccountTwo] = useState(false);
   const [aiPrompt, setAIPrompt] = useState("");
 
   const { isLoggedIn, setIsLoggedIn, loginUser, logoutUser } = useContext(LoginContext);
@@ -79,17 +74,6 @@ export default function Bank() {
     duration: 0.5,
   };
 
-  const variants = {
-    hidden: { scaleY: 0, originY: 1 }, // start from the base of the div
-    visible: { scaleY: 1, originY: 1 }, // grow up to the top of the div
-  };
-
-  const accountvariant = {
-    hidden: { x: "100%" }, // start from the right side of the container
-    visible: { x: 0 }, // animate back to the original position
-    exit: { x: "100%" }, // exit to the right side of the container
-  };
-
   const ldclient = useLDClient();
 
   function handleLogout() {
@@ -116,7 +100,7 @@ export default function Bank() {
         <div className="mb-8">
           <NavBar variant={"bank"} handleLogout={handleLogout} />
 
-          <main className="w-full px-8 mx-auto max-w-7xl ">
+          <main className="px-8 mx-auto w-5/6">
             <section
               className={`flex flex-col xl:flex-row py-8 ${
                 federatedAccounts ? "gap-y-8 sm:gap-x-8" : ""
@@ -127,14 +111,12 @@ export default function Bank() {
                   federatedAccounts ? "xl:w-[60%]" : "xl:w-full"
                 } font-sohne shadow-xl rounded-xl border border-zinc-200`}
               >
-                <div className="p-6 bg-bglightblue w-full rounded-xl">
+                <div className="p-6  bg-bglightblue w-full rounded-xl">
                   <div className="justify-center xl:justify-start">
-                    <p className="text-black font-sohne mb-6 text-[24px]">
-                      Account Summary
-                    </p>
+                    <p className="text-black font-sohne mb-6 text-[24px]">Account Summary</p>
 
                     <div className="flex flex-col sm:flex-row gap-y-4 sm:gap-x-4">
-                      <div className="p-4 h-[300px] w-full sm:w-1/3  bg-white ">
+                      <div className="p-4 h-[300px] w-full sm:w-1/3  bg-white">
                         <CheckingAccount wealthManagement={wealthManagement} />
                       </div>
                       <div className="p-4 h-[300px] w-full sm:w-1/3 bg-white">
@@ -147,9 +129,9 @@ export default function Bank() {
                   </div>
                 </div>
               </section>
-
-              {federatedAccounts ? 
-                <FederatedAccountModule /> : null}
+              {/* Add code from 02-Creating our first feature flag */}
+              <ComingSoonModule />
+              {/* We need to replace the code in between these comment blocks */}
             </section>
 
             <section className="flex flex-col xl:flex-row w-full gap-y-8 sm:gap-x-8 mb-10 h-full">
@@ -161,7 +143,7 @@ export default function Bank() {
                 <AccountTrends data={data} />
               </div>
 
-
+              {/* add code from 03-Controlling-the-audience-size */}
               {wealthManagement ? (
                 <div className="w-full xl:w-[40%]">
                   <WealthManagementSheet
@@ -174,9 +156,6 @@ export default function Bank() {
                   />
                 </div>
               ) : null}
-
-              {/* add code from 03-Controlling-the-audience-size */}
-
               {/* can add the code between these two comment blocks */}
             </section>
 
