@@ -178,7 +178,6 @@ export default function Bank() {
               {/* add code from 03-Controlling-the-audience-size */}
 
               {/* can add the code between these two comment blocks */}
-
             </section>
 
             <div className="flex flex-col lg:flex-row w-full h-full gap-y-8 sm:gap-x-8 justify-between">
