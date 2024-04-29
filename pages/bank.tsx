@@ -100,7 +100,7 @@ export default function Bank() {
         <div className="mb-8">
           <NavBar variant={"bank"} handleLogout={handleLogout} />
 
-          <main className="w-full px-8 mx-auto max-w-7xl ">
+          <main className="px-8 mx-auto w-full 2xl:w-5/6">
             <section
               className={`flex flex-col xl:flex-row py-8 ${
                 federatedAccounts ? "gap-y-8 sm:gap-x-8" : ""
@@ -122,7 +122,7 @@ export default function Bank() {
                       <div className="p-4 h-[300px] w-full sm:w-1/3 bg-white">
                         <CreditAccount />
                       </div>
-                      <div className="p-4 h-[300px] w-full sm:w-1/3 bg-white">
+                      <div className="p-4 w-full h-[300px] sm:w-1/3 bg-white">
                         <MorgtgageAccount />
                       </div>
                     </div>
@@ -144,8 +144,6 @@ export default function Bank() {
               >
                 <AccountTrends data={data} />
               </div>
-
-
 
               {/* add code from 03-Controlling-the-audience-size */}
 
